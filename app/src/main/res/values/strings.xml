@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AgeraCore</string>
+    <string name="post">post</string>
+    <string name="get">get</string>
+    <string name="rest">rest</string>
+    <string name="url">url</string>
+    <string name="result">result</string>
+</resources>
