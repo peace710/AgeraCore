@@ -37,7 +37,7 @@ Config your AgeraFit, like this:
 
 ```java
 AgeraFit fit = new AgeraFit.Builder()
-	.setBaseUrl(API_URL)
+	.setBaseUrl("https://api.github.com")
 	.setConverterFactory(GsonConverterFactory.create())
 	.build();
 	
