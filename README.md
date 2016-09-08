@@ -63,14 +63,6 @@ AgeraReceiver<List<Contributor>> receiver = new AgeraReceiver<List<Contributor>>
 
 ```
 
-#### Addition
-
-- 此项目是用于学习Agera的使用、发布lib到jcenter等等
-
-#### Link
-- [Agera](https://github.com/google/agera/wiki)  
-- [同事拒绝Retrofit，怎么办？](http://www.jianshu.com/p/9bafd93cea73)   
-- [Android开发发布lib到jcenter](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0824/6566.html)
 
 
 License
