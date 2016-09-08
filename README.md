@@ -6,7 +6,7 @@ version name: 1.0, version code: 1
 
 ```java
 fit = new AgeraFit.Builder()
-	.setBaseUrl(API_URL)
+	.setBaseUrl("https://api.github.com")
 	.setConverterFactory(GsonConverterFactory.create())
 	.build();
 ```
@@ -42,11 +42,11 @@ AgeraFit fit = new AgeraFit.Builder()
 	.build();
 	
 GitHub git = fit.create(GitHub.class);
-Repository<Result<List<Contributor>>> repository = git.contributors("square", "retrofit");
+Repository<Result<List<Contributor>>> repository = git.rest("square", "retrofit");
 repository.addUpdatable(receiver);
 ```
 
-Config your AgeraReceiver, like this:
+Create your AgeraReceiver, like this:
 
 ```java
 AgeraReceiver<List<Contributor>> receiver = new AgeraReceiver<List<Contributor>>() {
