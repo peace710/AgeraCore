@@ -19,7 +19,7 @@ To add a dependency using Gradle:
 compile 'AgeraCore:agera:0.0.1'
 ```
 
-It supports `Repository<Result<T>>`,  
+It supports `Repository<Result<T>>`,
 you could write your service interface like this:
 
 ```java
