@@ -45,8 +45,8 @@ GitHub git = fit.create(GitHub.class);
 Repository<Result<List<Contributor>>> repository = git.rest("square", "retrofit");
 repository.addUpdatable(receiver);
 ```
-
-Create your AgeraReceiver, like this:
+It supports AgeraReceiver<T>,
+you could write your receiver like this:
 
 ```java
 AgeraReceiver<List<Contributor>> receiver = new AgeraReceiver<List<Contributor>>() {
