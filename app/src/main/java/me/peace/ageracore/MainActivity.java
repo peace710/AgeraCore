@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity{
     public void get(View v){
         txtUrl.setText("https://api.github.com/repos/google/agera/contributors(Get)");
         GetGitHub git = fit.create(GetGitHub.class);
+        removeUpdatable();
         repositoryGet = git.contributors();
         repositoryGet.addUpdatable(receiverGet);
         txtResult.setText("");
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity{
     public void post(View v){
         txtUrl.setText("https://api.github.com/repos/alibaba/AndFix/contributors(Post)");
         PostGitHub git = fit.create(PostGitHub.class);
+        removeUpdatable();
         repositoryPost = git.contributors();
         repositoryPost.addUpdatable(receiverPost);
         txtResult.setText("");
@@ -119,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
     public void rest(View v){
         txtUrl.setText("https://api.github.com/repos/square/retrofit/contributors(Rest)");
         RestGitHub git = fit.create(RestGitHub.class);
+        removeUpdatable();
         repositoryRest = git.contributors("square", "retrofit");
         repositoryRest.addUpdatable(receiverRest);
         txtResult.setText("");
@@ -140,18 +143,25 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (null != repositoryGet){
-            repositoryGet.removeUpdatable(receiverGet);
-        }
-        if (null != repositoryPost){
-            repositoryPost.removeUpdatable(receiverPost);
-        }
-        if (null != repositoryRest){
-            repositoryRest.removeUpdatable(receiverRest);
-        }
+        removeUpdatable();
     }
 
     private void T(String text){
         Toast.makeText(this,text,Toast.LENGTH_LONG).show();
+    }
+
+    private void removeUpdatable(){
+        if (null != repositoryGet){
+            repositoryGet.removeUpdatable(receiverGet);
+            repositoryGet = null;
+        }
+        if (null != repositoryPost){
+            repositoryPost.removeUpdatable(receiverPost);
+            repositoryPost = null;
+        }
+        if (null != repositoryRest){
+            repositoryRest.removeUpdatable(receiverRest);
+            repositoryRest = null;
+        }
     }
 }

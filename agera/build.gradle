@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+version = '0.0.1'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -29,4 +31,65 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.google.android.agera:agera:1.2.0-beta2'
     compile 'com.google.android.agera:net:1.2.0-beta2'
+}
+
+def siteUrl = 'https://github.com/peace710/AgeraCore'
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'Agera network request lib'
+                url 'https://github.com/peace710/AgeraCore'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'peace710'
+                        name 'peace710'
+                    }
+                }
+                scm {
+                    connection 'https://github.com/peace710/AgeraCore'
+                    developerConnection 'https://github.com/peace710/AgeraCore.git'
+                    url 'https://github.com/peace710/AgeraCore'
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "peace"
+        name = "ageracore"
+        websiteUrl = 'https://github.com/peace710/AgeraCore'
+        vcsUrl = 'https://github.com/peace710/AgeraCore.git'
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
 }
