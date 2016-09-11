@@ -5,4 +5,6 @@
     <string name="rest">rest</string>
     <string name="url">url</string>
     <string name="result">result</string>
+    <string name="string_result">String Result</string>
+    <string name="json_result">Json Result</string>
 </resources>

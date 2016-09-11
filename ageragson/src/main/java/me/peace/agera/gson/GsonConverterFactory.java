@@ -1,4 +1,4 @@
-package com.agera.gson;
+package me.peace.agera.gson;
 
 import com.google.android.agera.net.HttpResponse;
 import com.google.gson.Gson;

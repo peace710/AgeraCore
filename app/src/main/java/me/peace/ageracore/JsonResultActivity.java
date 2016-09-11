@@ -1,8 +1,8 @@
 package me.peace.ageracore;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,26 +11,33 @@ import com.google.android.agera.Receiver;
 import com.google.android.agera.Repository;
 import com.google.android.agera.Result;
 
+import java.util.List;
+
 import me.peace.agera.AgeraFit;
 import me.peace.agera.Get;
 import me.peace.agera.Post;
 import me.peace.agera.Query;
 import me.peace.agera.Rest;
 import me.peace.agera.core.AgeraReceiver;
+import me.peace.agera.gson.GsonConverterFactory;
+import me.peace.ageracore.data.Contributor;
 
-public class StringResultActivity extends AppCompatActivity{
+public class JsonResultActivity extends AppCompatActivity{
     public static final String API_URL = "https://api.github.com";
     private TextView txtUrl;
     private TextView txtResult;
     private AgeraFit fit;
-    private Repository<Result<String>> repositoryGet;
-    private Repository<Result<String>> repositoryPost;
-    private Repository<Result<String>> repositoryRest;
+    private Repository<Result<List<Contributor>>> repositoryGet;
+    private Repository<Result<List<Contributor>>> repositoryPost;
+    private Repository<Result<List<Contributor>>> repositoryRest;
 
-    private AgeraReceiver<String> receiverGet = new AgeraReceiver<String>() {
+    private AgeraReceiver<List<Contributor>> receiverGet = new AgeraReceiver<List<Contributor>>() {
         @Override
-        public void accept(@NonNull String contributors) {
-            txtResult.append(contributors);
+        public void accept(@NonNull List<Contributor> contributors) {
+            for (Contributor contributor :  contributors) {
+                txtResult.append(contributor.login + " ("
+                        + contributor.contributions + ")");
+            }
             T("Get update!");
         }
 
@@ -40,10 +47,13 @@ public class StringResultActivity extends AppCompatActivity{
         }
     };
 
-    private AgeraReceiver<String> receiverPost = new AgeraReceiver<String>() {
+    private AgeraReceiver<List<Contributor>> receiverPost = new AgeraReceiver<List<Contributor>>() {
         @Override
-        public void accept(@NonNull String contributors) {
-            txtResult.append(contributors);
+        public void accept(@NonNull List<Contributor> contributors) {
+            for (Contributor contributor :  contributors) {
+                txtResult.append(contributor.login + " ("
+                        + contributor.contributions + ")");
+            }
             T("Post update!");
         }
 
@@ -53,10 +63,13 @@ public class StringResultActivity extends AppCompatActivity{
         }
     };
 
-    private AgeraReceiver<String> receiverRest = new AgeraReceiver<String>() {
+    private AgeraReceiver<List<Contributor>> receiverRest = new AgeraReceiver<List<Contributor>>() {
         @Override
-        public void accept(@NonNull String contributors) {
-            txtResult.append(contributors);
+        public void accept(@NonNull List<Contributor> contributors) {
+            for (Contributor contributor :  contributors) {
+                txtResult.append(contributor.login + " ("
+                        + contributor.contributions + ")");
+            }
             T("Rest update!");
         }
 
@@ -70,10 +83,10 @@ public class StringResultActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        setTitle(getString(R.string.string_result));
+        setTitle(getString(R.string.json_result));
         txtUrl = (TextView)findViewById(R.id.url);
         txtResult = (TextView)findViewById(R.id.result);
-        fit = new AgeraFit.Builder().setBaseUrl(API_URL).build();
+        fit = new AgeraFit.Builder().setBaseUrl(API_URL).setConverterFactory(GsonConverterFactory.create()).build();
     }
 
     public void get(View v){
@@ -87,7 +100,7 @@ public class StringResultActivity extends AppCompatActivity{
 
     public interface GetGitHub{
         @Get("/repos/google/agera/contributors")
-        Repository<Result<String>> contributors();
+        Repository<Result<List<Contributor>>> contributors();
     }
 
 
@@ -102,7 +115,7 @@ public class StringResultActivity extends AppCompatActivity{
 
     public interface PostGitHub{
         @Post("/repos/alibaba/AndFix/contributors")
-        Repository<Result<String>> contributors();
+        Repository<Result<List<Contributor>>> contributors();
     }
 
     public void rest(View v){
@@ -116,8 +129,8 @@ public class StringResultActivity extends AppCompatActivity{
 
     public interface RestGitHub {
         @Rest("/repos/{owner}/{repo}/contributors")
-        Repository<Result<String>> contributors(@Query("owner") String owner,
-                                                           @Query("repo") String repo);
+        Repository<Result<List<Contributor>>> contributors(@Query("owner") String owner,
+                                       @Query("repo") String repo);
     }
 
     private Receiver<Throwable> err = new Receiver<Throwable>() {
