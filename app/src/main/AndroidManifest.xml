@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".JsonResultActivity">
         </activity>
+        <activity android:name=".BitmapResultActivity">
+        </activity>
 
     </application>
 

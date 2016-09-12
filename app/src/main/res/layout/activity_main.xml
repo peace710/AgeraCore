@@ -15,4 +15,10 @@
         android:onClick="jsonResult"
         android:text="@string/json_result"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="bitmapResult"
+        android:text="@string/bitmap_result"/>
+
 </LinearLayout>

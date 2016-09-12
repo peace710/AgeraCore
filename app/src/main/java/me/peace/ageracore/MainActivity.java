@@ -23,4 +23,8 @@ public class MainActivity extends AppCompatActivity {
     public void jsonResult(View v){
         startActivity(new Intent(this,JsonResultActivity.class));
     }
+
+    public void bitmapResult(View v){
+        startActivity(new Intent(this,BitmapResultActivity.class));
+    }
 }

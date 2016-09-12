@@ -7,4 +7,6 @@
     <string name="result">result</string>
     <string name="string_result">String Result</string>
     <string name="json_result">Json Result</string>
+    <string name="bitmap_result">Bitmap Result</string>
+    <string name="load">load</string>
 </resources>

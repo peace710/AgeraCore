@@ -1,1 +1,1 @@
-include ':app', ':agera', ':ageragson'
+include ':app', ':agera', ':ageragson', ':agerabitmap'
